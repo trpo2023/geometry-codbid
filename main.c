@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 float find(char *arr, int *p, int *i) {
 	char temp[10];
@@ -41,20 +42,29 @@ int check(char *a) {
 	y = find(a, p, &incorrect);
 	r = find(a, p, &incorrect);
 	if ( !incorrect ) {
-		printf("%f %f %f\n", x, y, r);
-		return 1;
+		printf("%.2f, %.2f, %.2f\n", x, y, r);
+		return 0;
 	}
 	else
-		return 0;
+		return 1;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 	FILE *fp;
+	if ( argc != 2 ) {
+		printf("Requires 1 argument\n");
+		exit(1);
+	}
 	char buffer[127];
-	char *name = "test.txt";
-	fp = fopen(name, "r");
+	char *name = argv[1];
+	if ( (fp = fopen(name, "r")) == NULL ) {
+		printf("Incorrect file path or the file cannot be opened\n");
+		exit(1);
+	}
 	while ( ! feof(fp) ) {
 		fgets(buffer, 127, fp);
-		check(buffer);
+		if ( check(buffer) == 1) {
+			printf("Incorrect str: '%s'\n", strtok(buffer, "\n"));
+		}
 	}
 }
