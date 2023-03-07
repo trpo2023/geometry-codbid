@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define SPACE_SYMBOL 32 // " "
-#define COMMA_SYMBOL 44 // ","
-#define BRACKET_SYMBOL 40 // "("
+#define SPACE_SYMBOL 32       // " "
+#define COMMA_SYMBOL 44       // ","
+#define BRACKET_SYMBOL 40     // "("
 #define BACKBRACKET_SYMBOL 41 // ")"
-#define DOT_SYMBOL 46 // "."
+#define DOT_SYMBOL 46         // "."
 #define MAX_BUFFER_SIZE 127
 
 float Processing(char* Array, int* p, int* incorrect, int target)
@@ -14,24 +14,28 @@ float Processing(char* Array, int* p, int* incorrect, int target)
     char Temp[10];
     int Index = *p;
     int i_Temp = 0;
-    
-    if ( target == 1 ) {
-    	if ( (*(Array + Index + 1) != SPACE_SYMBOL) || (isdigit(*(Array + Index + 2) == 0)) ) {
-    		*incorrect = 1;
-    		printf("Received '");
-    		while ( isdigit(*(Array + Index)) == 0 ) {
-    			printf("%c", *(Array + Index));
-    			Index++;
-    		}
-    		printf("', but required SPACE\n");
-    		return 2;
-    	}
+
+    if (target == 1) {
+        if (((*(Array + Index + 1) != SPACE_SYMBOL)
+             || (isdigit(*(Array + Index + 2) == 0)))
+            && *(Array + Index + 1) != DOT_SYMBOL) {
+            *incorrect = 1;
+            printf("Received '");
+            while (isdigit(*(Array + Index + 1)) == 0
+                   && *(Array + Index + 1) != DOT_SYMBOL) {
+                printf("%c", *(Array + Index + 1));
+                Index++;
+            }
+            printf("', but required SPACE: %s", Array);
+            return 2;
+        }
     }
     if (*(Array + Index) == SPACE_SYMBOL || *(Array + Index) == COMMA_SYMBOL) {
         *p = Index + 1;
         return Processing(Array, p, incorrect, target);
     }
-    while (*(Array + Index) != SPACE_SYMBOL && *(Array + Index) != COMMA_SYMBOL && *(Array + Index) != BACKBRACKET_SYMBOL) {
+    while (*(Array + Index) != SPACE_SYMBOL && *(Array + Index) != COMMA_SYMBOL
+           && *(Array + Index) != BACKBRACKET_SYMBOL) {
         if (isdigit(*(Array + Index)) > 0 || *(Array + Index) == DOT_SYMBOL)
             Temp[i_Temp++] = *(Array + Index);
         else {
@@ -41,11 +45,20 @@ float Processing(char* Array, int* p, int* incorrect, int target)
         Index++;
     }
     *p = Index;
-    if ( target == 2 ) {
-    	if ( (*(Array + Index) != COMMA_SYMBOL) || (*(Array + Index + 1) != SPACE_SYMBOL) || (isdigit(*(Array + Index + 2) == 0)) ) {
-    		*incorrect = 1;
-    		return 2;
-    	}
+    if (target == 2) {
+        if ((*(Array + Index) != COMMA_SYMBOL)
+            || (*(Array + Index + 1) != SPACE_SYMBOL)
+            || (isdigit(*(Array + Index + 2) == 0))) {
+            *incorrect = 1;
+            printf("Received '");
+            while (isdigit(*(Array + Index)) == 0
+                   && *(Array + Index) != DOT_SYMBOL) {
+                printf("%c", *(Array + Index));
+                Index++;
+            }
+            printf("', but required COMMA: %s", Array);
+            return 2;
+        }
     }
     return atof(Temp);
 }
