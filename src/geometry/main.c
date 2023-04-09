@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../libgeometry/parser.h"
+#include "libgeometry/parser.h"
 #define PI 3.14
 #define MAX_BUFFER_SIZE 127
 
@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
     }
     while (!feof(fp)) {
         fgets(buffer, 127, fp);
-        //printf("Incorrect str: '%s'\n", strtok(buffer, "\n"));
         Circle* circle = parse(buffer);
         if ( circle->error_index )
         {
