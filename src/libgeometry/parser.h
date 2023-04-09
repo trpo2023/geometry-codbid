@@ -6,3 +6,5 @@ typedef struct
     double r;
     int error_index;
 } Circle;
+
+Circle *parse(char *buffer);

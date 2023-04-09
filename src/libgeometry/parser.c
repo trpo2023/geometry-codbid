@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 #include "parser.h"
 
 Circle *parse(char *buffer)
@@ -8,23 +10,27 @@ Circle *parse(char *buffer)
     char *temp = malloc(10 * sizeof(char));
     int temp_i = 0;
     int i = 0;
+
     while (buffer[i] != '(')
     {
         circle->name[i] = buffer[i];
         i++;
     } i++;
 
-    while (buffer[i] != ' ' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.' ) )
+    int start = i;
+    if ( isdigit(buffer[i]) || buffer[i] == '-')
     {
-        temp[temp_i] = buffer[i];
-        temp_i++;
-        i++;
+        while (buffer[i] != ' ' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.' || ( buffer[i] == '-' && i == start ) ) )
+        {
+            temp[temp_i] = buffer[i];
+            temp_i++;
+            i++;
+        }
+        circle->x = atof(temp);
     }
-    circle->x = atof(temp);
 
     if ( buffer[i] != ' ' )
     {   
-        printf("Error at %d", i);
         circle->error_index = i;
         free(temp);
         return circle;
@@ -35,7 +41,8 @@ Circle *parse(char *buffer)
     temp = malloc(10 * sizeof(char));
     temp_i = 0;
 
-    while (buffer[i] != ',' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.' ) )
+    start = i;
+    while (buffer[i] != ',' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.' || ( buffer[i] == '-' && i == start ) ) )
     {
         temp[temp_i] = buffer[i];
         temp_i++;
@@ -45,7 +52,6 @@ Circle *parse(char *buffer)
 
     if ( buffer[i] != ',' )
     {   
-        printf("Error at %d", i);
         circle->error_index = i;
         free(temp);
         return circle;
@@ -57,7 +63,7 @@ Circle *parse(char *buffer)
     temp = malloc(10 * sizeof(char));
     temp_i = 0;
 
-    while (buffer[i] != ')' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.' ) )
+    while (buffer[i] != ')' && ( isdigit(buffer[i]) != 0 || buffer[i] == '.') )
     {
         temp[temp_i] = buffer[i];
         temp_i++;
