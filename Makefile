@@ -21,7 +21,7 @@ GEOOBJS = $(OBJ_GEOMETRY_DIR)/main.o
 LIBOBJS = $(OBJ_LIBGEOMETRY_DIR)/parser.o
 LIBNAME = $(OBJ_LIBGEOMETRY_DIR)/libgeometry.a
 
-.PHONY: all clean
+.PHONY: all clean clean_all
 
 all: $(TARGET)
 
@@ -29,11 +29,9 @@ $(TARGET): $(GEOOBJS) $(LIBNAME)
 	$(CC) $^ -o $@
 
 $(OBJ_GEOMETRY_DIR)/%.o: $(SRC_GEOMETRY_DIR)/%.c
-	mkdir obj/geometry
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_LIBGEOMETRY_DIR)/%.o: $(SRC_LIBGEOMETRY_DIR)/%.c
-	mkdir obj/libgeometry
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBNAME): $(LIBOBJS)
@@ -43,4 +41,7 @@ $(LIBNAME): $(LIBOBJS)
 -include $(DEP_LIBGEOMETRY)
 
 clean:
-	$(RM) -r $(OBJDIR)/geometry $(OBJDIR)/libgeometry $(TARGET) $(LIBNAME)
+	$(RM) -r $(OBJ_GEOMETRY_DIR)/* $(OBJ_LIBGEOMETRY_DIR)/* $(LIBNAME)
+
+clean_all:
+	$(RM) -r $(OBJ_GEOMETRY_DIR)/* $(OBJ_LIBGEOMETRY_DIR)/* $(TARGET) $(LIBNAME)
