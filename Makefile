@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -Isrc/libgeometry -MMD -MP
+CFLAGS = -Wall -Werror -Isrc/libgeometry -MMD
 TARGET = geometry
 OBJDIR = obj
 SRCDIR = src
