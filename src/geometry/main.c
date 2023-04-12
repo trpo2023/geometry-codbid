@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libgeometry/parser.h"
+#include <parser.h>
 #define PI 3.14
 #define MAX_BUFFER_SIZE 127
 
