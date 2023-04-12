@@ -22,9 +22,9 @@ int main(int argc, char* argv[])
     while (!feof(fp)) {
         fgets(buffer, 127, fp);
         Circle* circle = parse(buffer);
-        if ( circle->error_index )
+        if ( circle->error_index != -1 )
         {
-            printf("Error in column %d:\n", circle->error_index);
+            printf("Error in column %d:\n", circle->error_index + 1);
             printf("%s\n", strtok(buffer, "\n"));
             printf("%*s%c\n\n", circle->error_index, "", '^');
         } 

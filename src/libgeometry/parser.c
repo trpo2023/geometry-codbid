@@ -6,16 +6,27 @@
 Circle *parse(char *buffer)
 {
     Circle* circle = malloc(sizeof(Circle));
-    circle->error_index = 0;
+    circle->error_index = -1;
     char *temp = malloc(10 * sizeof(char));
     int temp_i = 0;
+    char example[] = "circle";
     int i = 0;
 
     while (buffer[i] != '(')
     {
-        circle->name[i] = buffer[i];
-        i++;
+        if ( buffer[i] == example[i] ) {
+            circle->name[i] = buffer[i];
+            i++;
+        }
+        else break;
     } i++;
+
+    if (i != 7)
+    {
+        circle->error_index = i - 2;
+        free(temp);
+        return circle;
+    }
 
     int start = i;
     if ( isdigit(buffer[i]) || buffer[i] == '-')
