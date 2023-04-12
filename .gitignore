@@ -2,6 +2,6 @@
 *.save*
 *.txt
 *.o
-geometry
+/geometry
 *.a
 *.d
