@@ -1,8 +1,8 @@
 #include <ctype.h>
+#include <parser.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <parser.h>
 #define PI 3.14
 #define MAX_BUFFER_SIZE 127
 
@@ -22,18 +22,14 @@ int main(int argc, char* argv[])
     while (!feof(fp)) {
         fgets(buffer, 127, fp);
         Circle* circle = parse(buffer);
-        if ( circle->error_index != -1 )
-        {
+        if (circle->error_index != -1) {
             printf("Error in column %d:\n", circle->error_index + 1);
             printf("%s\n", strtok(buffer, "\n"));
             printf("%*s%c\n\n", circle->error_index, "", '^');
-        } 
-        else 
-        {
+        } else {
             printf("%s\n", strtok(buffer, "\n"));
             printf("Area = %.2lf\n", PI * (circle->r * circle->r));
             printf("Perimeter = %.2lf\n\n", 2 * PI * circle->r);
         }
     }
 }
-

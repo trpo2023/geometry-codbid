@@ -1,5 +1,4 @@
-typedef struct
-{
+typedef struct {
     char name[10];
     double x;
     double y;
@@ -7,4 +6,4 @@ typedef struct
     int error_index;
 } Circle;
 
-Circle *parse(char *buffer);
+Circle* parse(char* buffer);
