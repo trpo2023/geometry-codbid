@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Isrc/libgeometry -MMD
-TARGET = geometry
+TARGET = bin/geometry
 OBJDIR = obj
 SRCDIR = src
 
