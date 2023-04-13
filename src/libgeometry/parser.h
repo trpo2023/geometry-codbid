@@ -1,3 +1,6 @@
+#ifndef PARSER
+#define PARSER
+
 typedef struct {
     char name[10];
     double x;
@@ -7,3 +10,5 @@ typedef struct {
 } Circle;
 
 Circle* parse(char* buffer);
+
+#endif
