@@ -1,4 +1,7 @@
-main
+*main
 *.save*
-test.txt
-
+*.txt
+*.o
+/geometry
+*.a
+*.d
