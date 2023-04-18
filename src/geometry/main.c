@@ -1,10 +1,14 @@
 #include <ctype.h>
-#include <parser.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define PI 3.14
+
+#include <parser.h>
+#include <math_geometry.h>
+
 #define MAX_BUFFER_SIZE 127
+
+
 
 int main(int argc, char* argv[])
 {
@@ -28,8 +32,8 @@ int main(int argc, char* argv[])
             printf("%*s%c\n\n", circle->error_index, "", '^');
         } else {
             printf("%s\n", strtok(buffer, "\n"));
-            printf("Area = %.2lf\n", PI * (circle->r * circle->r));
-            printf("Perimeter = %.2lf\n\n", 2 * PI * circle->r);
+            printf("Area = %.2lf\n", area(circle->r));
+            printf("Perimeter = %.2lf\n\n", perimeter(circle->r));
         }
     }
 }
