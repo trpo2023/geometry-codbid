@@ -1,0 +1,7 @@
+*main
+*.save*
+*.txt
+*.o
+bin/geometry
+*.a
+*.d
